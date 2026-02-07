@@ -1,0 +1,295 @@
+/* ===================== RESET & BASE ===================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Space+Grotesk:wght@400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top, #eef2ff, #f8fafc 45%, #e0f2fe);
+  color: #333;
+  min-height: 100vh;
+}
+
+main.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* ===================== TOP BAR ===================== */
+.top-bar {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  background: linear-gradient(135deg, #4f46e5, #2563eb);
+  color: #fff;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.top-bar .brand .logo {
+  font-weight: 700;
+  font-size: 1.2rem;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.top-bar .brand .builder {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.user-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+}
+
+.user-email {
+  background: rgba(255,255,255,0.16);
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+}
+
+.logout-btn {
+  border: none;
+  background: #fff;
+  color: #4f46e5;
+  font-weight: 600;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.logout-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+}
+
+/* ===================== PAGE HEADER ===================== */
+.page-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.page-header h1 {
+  font-size: 1.8rem;
+  color: #4f46e5;
+  margin-bottom: 0.3rem;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.page-header p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* ===================== SUMMARY CARD ===================== */
+.summary {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 2rem;
+}
+
+.summary-card {
+  background: linear-gradient(135deg, #4f46e5, #2563eb);
+  color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+.summary-card span {
+  display: block;
+  font-size: 0.95rem;
+  opacity: 0.8;
+  margin-bottom: 0.3rem;
+}
+
+.summary-card h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.reset-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.6);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* ===================== ADD EXPENSE FORM ===================== */
+.add-expense {
+  width: 100%;
+  max-width: 500px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  margin-bottom: 2rem;
+}
+
+.add-expense h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #4f46e5;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.form-group input {
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 8px rgba(79,70,229,0.3);
+}
+
+.form-group button {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: #4f46e5;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-group button:hover {
+  background: #3b36c6;
+  transform: translateY(-2px);
+}
+
+/* ===================== EXPENSE LIST ===================== */
+.expense-list-section {
+  width: 100%;
+  max-width: 500px;
+}
+
+.expense-list-section h3 {
+  margin-bottom: 0.8rem;
+  color: #4f46e5;
+}
+
+#expenseList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+#expenseList li {
+  background: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#expense-list li:hover {
+  transform: translateX(3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* ===================== BOTTOM NAVIGATION ===================== */
+.bottom-nav {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: space-around;
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.8rem 0;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  margin-top: 2rem;
+}
+
+.bottom-nav a {
+  text-decoration: none;
+  color: #4f46e5;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.bottom-nav a.active {
+  background: #4f46e5;
+  color: #fff;
+  padding: 0.35rem 0.9rem;
+  border-radius: 8px;
+}
+
+.bottom-nav a:hover {
+  color: #3b36c6;
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+
+  .form-group {
+    flex-direction: column;
+  }
+
+  .summary-card h2 {
+    font-size: 1.6rem;
+  }
+
+  .add-expense h3,
+  .expense-list-section h3 {
+    font-size: 1rem;
+  }
+
+  .bottom-nav a {
+    font-size: 0.85rem;
+  }
+}
+
+/* ===================== ANIMATIONS ===================== */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
+
+.summary-card,
+.add-expense,
+.expense-list-section li {
+  animation: fadeInUp 0.6s ease forwards;
+}

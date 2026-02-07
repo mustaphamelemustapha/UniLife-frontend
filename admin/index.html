@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniLife Admin</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">UniLife Admin</div>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../dashboard/index.html">Dashboard</a></li>
+      <li><a href="../auth/index.html">Login</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <section class="header">
+      <h1>Admin Console</h1>
+      <p>Monitor registered users, expenses, and study plans.</p>
+      <div class="header-actions">
+        <button id="logoutBtn" class="btn-secondary">Logout</button>
+      </div>
+      <p id="adminStatus" class="status"></p>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h2>Users</h2>
+        <p class="count" id="usersCount">0</p>
+        <div class="table" id="usersTable"></div>
+      </div>
+      <div class="panel">
+        <h2>Expenses</h2>
+        <p class="count" id="expensesCount">0</p>
+        <div class="table" id="expensesTable"></div>
+      </div>
+      <div class="panel">
+        <h2>Study Plans</h2>
+        <p class="count" id="studyCount">0</p>
+        <div class="table" id="studyTable"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

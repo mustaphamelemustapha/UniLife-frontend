@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniLife • Expense Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="theme-color" content="#4f46e5" />
+</head>
+
+<body>
+  <main class="app">
+
+    <header class="top-bar">
+      <div class="brand">
+        <span class="logo">UniLife</span>
+        <span class="builder">by Mustapha Mele</span>
+      </div>
+      <div class="user-bar">
+        <span id="userEmail" class="user-email">Loading...</span>
+        <button id="logoutBtn" class="logout-btn">Logout</button>
+      </div>
+    </header>
+
+    <section class="page-header">
+      <h1>Expense Tracker</h1>
+      <p>Control your daily spending as a student</p>
+    </section>
+
+    <section class="summary">
+      <div class="summary-card">
+        <span>Total Expenses</span>
+        <h2 id="totalAmount">₦0</h2>
+        <button onclick="resetExpenses()" class="reset-btn">
+  Reset All Expenses
+</button>
+
+      </div>
+    </section>
+
+    <section class="add-expense">
+      <h3>Add New Expense</h3>
+      <div class="form-group">
+        <input id="category" type="text" placeholder="What did you spend on?" />
+        <input id="amount" type="number" placeholder="Amount (₦)" />
+        <button id="addExpense">Add Expense</button>
+      </div>
+    </section>
+
+    <section class="expense-list-section">
+      <h3>Recent Expenses</h3>
+      <ul id="expenseList"></ul>
+
+    </section>
+
+    <nav class="bottom-nav">
+      <a href="../dashboard/index.html">🏠 Dashboard</a>
+      <a href="../study-planner/index.html">📚 Planner</a>
+      <a class="active" href="#">💸 Expenses</a>
+    </nav>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

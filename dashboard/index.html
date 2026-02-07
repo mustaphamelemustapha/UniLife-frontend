@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniLife Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">UniLife</div>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../auth/index.html">Account</a></li>
+      <li><a href="../study-planner/index.html">Study Planner</a></li>
+      <li><a href="../expenses-tracker/index.html">Expense Tracker</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <section class="welcome">
+      <h1>Welcome back</h1>
+      <p id="userEmail">Loading account...</p>
+      <div class="actions">
+        <button id="logoutBtn" class="btn-secondary">Logout</button>
+        <a id="adminLink" class="btn-secondary" href="../admin/index.html" style="display:none;">Admin</a>
+      </div>
+    </section>
+
+    <section class="cards">
+      <div class="card">
+        <h2>Study Planner</h2>
+        <p>Create study tasks that belong only to your account.</p>
+        <a class="btn" href="../study-planner/index.html">Open Study Planner</a>
+      </div>
+      <div class="card">
+        <h2>Expense Tracker</h2>
+        <p>Track and manage your personal expenses.</p>
+        <a class="btn" href="../expenses-tracker/index.html">Open Expense Tracker</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
