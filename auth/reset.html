@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reset Password</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">UniLife</div>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../app/index.html">App</a></li>
+      <li><a href="../dashboard/index.html">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <main class="auth-shell">
+    <section class="auth-card">
+      <header class="auth-header">
+        <h1>Reset your password</h1>
+        <p>Enter a new password below.</p>
+      </header>
+
+      <form id="resetForm" class="auth-form">
+        <label for="resetPassword">New Password</label>
+        <input type="password" id="resetPassword" minlength="6" maxlength="72" required />
+
+        <label for="resetPasswordConfirm">Confirm Password</label>
+        <input type="password" id="resetPasswordConfirm" minlength="6" maxlength="72" required />
+
+        <button class="btn" type="submit">Update Password</button>
+        <p class="hint" id="resetMessage"></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -12,6 +12,13 @@ const loginForm = document.getElementById("loginForm");
 const loginEmail = document.getElementById("loginEmail");
 const loginPassword = document.getElementById("loginPassword");
 const loginMessage = document.getElementById("loginMessage");
+const forgotForm = document.getElementById("forgotForm");
+const forgotEmail = document.getElementById("forgotEmail");
+const forgotMessage = document.getElementById("forgotMessage");
+const resetForm = document.getElementById("resetForm");
+const resetPassword = document.getElementById("resetPassword");
+const resetPasswordConfirm = document.getElementById("resetPasswordConfirm");
+const resetMessage = document.getElementById("resetMessage");
 
 function setMessage(el, msg, isError = false) {
   if (!el) return;
@@ -107,6 +114,61 @@ if (loginForm) {
     } catch (err) {
       const msg = err.name === "AbortError" ? "Request timed out. Try again." : err.message;
       setMessage(loginMessage, msg, true);
+    }
+  });
+}
+
+if (forgotForm) {
+  forgotForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    setMessage(forgotMessage, "Sending reset link...");
+    try {
+      const res = await fetchWithTimeout(`${API_BASE}/password-reset/request`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: forgotEmail.value.trim() })
+      });
+      if (!res.ok) throw new Error("Request failed");
+      setMessage(forgotMessage, "Check your email for the reset link.");
+    } catch (err) {
+      const msg = err.name === "AbortError" ? "Request timed out. Try again." : err.message;
+      setMessage(forgotMessage, msg, true);
+    }
+  });
+}
+
+if (resetForm) {
+  resetForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (resetPassword.value !== resetPasswordConfirm.value) {
+      setMessage(resetMessage, "Passwords do not match.", true);
+      return;
+    }
+
+    const token = new URLSearchParams(window.location.search).get("token");
+    if (!token) {
+      setMessage(resetMessage, "Reset token missing.", true);
+      return;
+    }
+
+    setMessage(resetMessage, "Updating password...");
+    try {
+      const res = await fetchWithTimeout(`${API_BASE}/password-reset/confirm`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, new_password: resetPassword.value })
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.detail || "Reset failed");
+      }
+      setMessage(resetMessage, "Password updated. Redirecting to login...");
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 1200);
+    } catch (err) {
+      const msg = err.name === "AbortError" ? "Request timed out. Try again." : err.message;
+      setMessage(resetMessage, msg, true);
     }
   });
 }
