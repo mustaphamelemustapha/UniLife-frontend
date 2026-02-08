@@ -39,8 +39,27 @@
         <a class="btn" href="../expenses-tracker/index.html">Open Expense Tracker</a>
       </div>
     </section>
+
+    <section class="charts">
+      <h2>Analytics</h2>
+      <div class="chart-grid">
+        <div class="chart-card">
+          <h3>Weekly Spend</h3>
+          <canvas id="weeklyChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Last 30 Days</h3>
+          <canvas id="monthlyChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Top Categories</h3>
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </div>
+    </section>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

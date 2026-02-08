@@ -74,3 +74,67 @@ logoutBtn.addEventListener("click", () => {
   localStorage.removeItem("token");
   window.location.href = "../auth/index.html";
 });
+
+async function loadAnalytics() {
+  if (!token) return;
+  const API_BASE = localStorage.getItem("apiBase") || "https://unilife-backend.onrender.com";
+  try {
+    const res = await fetch(`${API_BASE}/analytics/summary`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+
+    const weeklyLabels = data.weekly.map(d => d.label);
+    const weeklyValues = data.weekly.map(d => d.value);
+    const monthlyLabels = data.monthly.map(d => d.label);
+    const monthlyValues = data.monthly.map(d => d.value);
+    const categoryLabels = data.categories.map(d => d.label);
+    const categoryValues = data.categories.map(d => d.value);
+
+    new Chart(document.getElementById("weeklyChart"), {
+      type: "bar",
+      data: {
+        labels: weeklyLabels,
+        datasets: [{
+          label: "₦",
+          data: weeklyValues,
+          backgroundColor: "#2563eb"
+        }]
+      },
+      options: { responsive: true, plugins: { legend: { display: false } } }
+    });
+
+    new Chart(document.getElementById("monthlyChart"), {
+      type: "line",
+      data: {
+        labels: monthlyLabels,
+        datasets: [{
+          label: "₦",
+          data: monthlyValues,
+          borderColor: "#2563eb",
+          backgroundColor: "rgba(37,99,235,0.15)",
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: { responsive: true, plugins: { legend: { display: false } } }
+    });
+
+    new Chart(document.getElementById("categoryChart"), {
+      type: "doughnut",
+      data: {
+        labels: categoryLabels,
+        datasets: [{
+          data: categoryValues,
+          backgroundColor: ["#2563eb", "#60a5fa", "#34d399", "#fbbf24", "#f97316", "#a78bfa"]
+        }]
+      },
+      options: { responsive: true, plugins: { legend: { position: "bottom" } } }
+    });
+  } catch {
+    // ignore for now
+  }
+}
+
+loadAnalytics();
