@@ -26,6 +26,21 @@
   <div class="container">
     <h1>Smart Study Planner</h1>
 
+    <section class="pomodoro">
+      <h3>Pomodoro Timer</h3>
+      <div class="timer-display" id="timerDisplay">25:00</div>
+      <div class="timer-controls">
+        <button id="timerStart" class="btn">Start</button>
+        <button id="timerPause" class="btn-secondary">Pause</button>
+        <button id="timerReset" class="btn-secondary">Reset</button>
+      </div>
+      <div class="timer-modes">
+        <button id="modeFocus" class="btn-secondary">Focus (25)</button>
+        <button id="modeShort" class="btn-secondary">Short Break (5)</button>
+        <button id="modeLong" class="btn-secondary">Long Break (15)</button>
+      </div>
+    </section>
+
     <div class="add-task">
       <input type="text" id="planInput" placeholder="Add a new task...">
       <select id="daySelect">

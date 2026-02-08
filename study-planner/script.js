@@ -5,6 +5,13 @@ const addPlanBtn = document.getElementById("addPlanBtn");
 const daySections = document.querySelectorAll(".day-section");
 const userEmail = document.getElementById("userEmail");
 const logoutBtn = document.getElementById("logoutBtn");
+const timerDisplay = document.getElementById("timerDisplay");
+const timerStart = document.getElementById("timerStart");
+const timerPause = document.getElementById("timerPause");
+const timerReset = document.getElementById("timerReset");
+const modeFocus = document.getElementById("modeFocus");
+const modeShort = document.getElementById("modeShort");
+const modeLong = document.getElementById("modeLong");
 
 const API_BASE = "https://unilife-backend.onrender.com/study";
 
@@ -277,3 +284,55 @@ logoutBtn.addEventListener("click", () => {
   localStorage.removeItem("current_user_email");
   window.location.href = "../auth/index.html";
 });
+
+// ================= Pomodoro =================
+let timer = null;
+let remaining = 25 * 60;
+
+function renderTimer() {
+  const minutes = String(Math.floor(remaining / 60)).padStart(2, "0");
+  const seconds = String(remaining % 60).padStart(2, "0");
+  timerDisplay.textContent = `${minutes}:${seconds}`;
+}
+
+function startTimer() {
+  if (timer) return;
+  timer = setInterval(() => {
+    remaining -= 1;
+    if (remaining <= 0) {
+      clearInterval(timer);
+      timer = null;
+      addActivity("Pomodoro completed");
+      remaining = 0;
+    }
+    renderTimer();
+  }, 1000);
+}
+
+function pauseTimer() {
+  if (timer) {
+    clearInterval(timer);
+    timer = null;
+  }
+}
+
+function resetTimer() {
+  pauseTimer();
+  remaining = 25 * 60;
+  renderTimer();
+}
+
+function setMode(minutes) {
+  pauseTimer();
+  remaining = minutes * 60;
+  renderTimer();
+}
+
+timerStart.addEventListener("click", startTimer);
+timerPause.addEventListener("click", pauseTimer);
+timerReset.addEventListener("click", resetTimer);
+modeFocus.addEventListener("click", () => setMode(25));
+modeShort.addEventListener("click", () => setMode(5));
+modeLong.addEventListener("click", () => setMode(15));
+
+renderTimer();
