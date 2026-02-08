@@ -234,6 +234,76 @@ main.app {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* ===================== BUDGETS ===================== */
+.budgets {
+  width: 100%;
+  max-width: 500px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  margin-bottom: 2rem;
+}
+
+.budget-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.budget-form input {
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.budget-form button {
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  border: none;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.budget-item {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.budget-item h4 {
+  margin-bottom: 0.4rem;
+}
+
+.budget-bar {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.budget-bar > div {
+  height: 100%;
+  background: #2563eb;
+}
+
+.budget-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+}
+
+body.dark .budgets,
+body.dark .budget-item {
+  background: #111827;
+  color: #e2e8f0;
+}
+
 #expense-list li:hover {
   transform: translateX(3px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.08);

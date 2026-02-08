@@ -10,6 +10,10 @@ const expenseList = document.getElementById("expenseList");
 const totalAmount = document.getElementById("totalAmount");
 const userEmail = document.getElementById("userEmail");
 const logoutBtn = document.getElementById("logoutBtn");
+const budgetCategory = document.getElementById("budgetCategory");
+const budgetLimit = document.getElementById("budgetLimit");
+const addBudgetBtn = document.getElementById("addBudget");
+const budgetList = document.getElementById("budgetList");
 
 function getToken() {
   return localStorage.getItem("token");
@@ -60,6 +64,50 @@ function addActivity(message) {
   localStorage.setItem(key, JSON.stringify(items.slice(0, 50)));
 }
 
+function getBudgetKey() {
+  const email = localStorage.getItem("current_user_email") || "anon";
+  return `budgets:${email}`;
+}
+
+function loadBudgets() {
+  return JSON.parse(localStorage.getItem(getBudgetKey()) || "[]");
+}
+
+function saveBudgets(budgets) {
+  localStorage.setItem(getBudgetKey(), JSON.stringify(budgets));
+}
+
+function renderBudgets(expenses) {
+  const budgets = loadBudgets();
+  const now = new Date();
+  const month = now.getMonth();
+  const year = now.getFullYear();
+
+  const spentByCategory = {};
+  expenses.forEach(exp => {
+    const created = exp.created_at ? new Date(exp.created_at) : new Date();
+    if (created.getMonth() === month && created.getFullYear() === year) {
+      spentByCategory[exp.category] = (spentByCategory[exp.category] || 0) + exp.amount;
+    }
+  });
+
+  budgetList.innerHTML = "";
+  budgets.forEach(b => {
+    const spent = spentByCategory[b.category] || 0;
+    const pct = Math.min(100, Math.round((spent / b.limit) * 100));
+    const div = document.createElement("div");
+    div.className = "budget-item";
+    div.innerHTML = `
+      <h4>${b.category}</h4>
+      <div class="budget-bar"><div style="width:${pct}%"></div></div>
+      <div class="budget-meta">
+        <span>₦${spent.toFixed(2)} spent</span>
+        <span>₦${b.limit.toFixed(2)} limit</span>
+      </div>
+    `;
+    budgetList.appendChild(div);
+  });
+}
 async function loadMe() {
   const token = getToken();
   if (!token) return;
@@ -112,6 +160,7 @@ async function loadExpenses() {
     });
 
     totalAmount.textContent = `₦${total}`;
+    renderBudgets(expenses);
   } catch (err) {
     console.error(err);
     alert("Failed to load expenses");
@@ -151,6 +200,27 @@ addExpenseBtn.addEventListener("click", async () => {
     console.error(err);
     alert("Failed to save expense");
   }
+});
+
+addBudgetBtn.addEventListener("click", () => {
+  const category = budgetCategory.value.trim();
+  const limit = Number(budgetLimit.value);
+  if (!category || !limit) {
+    alert("Enter valid budget");
+    return;
+  }
+  const budgets = loadBudgets();
+  const existing = budgets.find(b => b.category.toLowerCase() === category.toLowerCase());
+  if (existing) {
+    existing.limit = limit;
+  } else {
+    budgets.push({ category, limit });
+  }
+  saveBudgets(budgets);
+  budgetCategory.value = "";
+  budgetLimit.value = "";
+  loadExpenses();
+  addActivity(`Set budget: ${category} (₦${limit})`);
 });
 
 // ================== DELETE ==================
