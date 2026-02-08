@@ -416,6 +416,18 @@ section.section-visible {
   font-family: 'Space Grotesk', sans-serif;
 }
 
+.icon-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #eef2ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.8rem;
+  font-size: 1.4rem;
+}
+
 .card p, .tool-card p {
   font-size: 1rem;
   color: var(--muted);
