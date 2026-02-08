@@ -48,10 +48,16 @@ function requireToken() {
   return true;
 }
 
+function getActivityKey() {
+  const email = localStorage.getItem("current_user_email") || "anon";
+  return `activity:${email}`;
+}
+
 function addActivity(message) {
-  const items = JSON.parse(localStorage.getItem("activity") || "[]");
+  const key = getActivityKey();
+  const items = JSON.parse(localStorage.getItem(key) || "[]");
   items.unshift({ message, ts: Date.now() });
-  localStorage.setItem("activity", JSON.stringify(items.slice(0, 50)));
+  localStorage.setItem(key, JSON.stringify(items.slice(0, 50)));
 }
 
 async function loadMe() {
@@ -64,6 +70,7 @@ async function loadMe() {
     if (!res.ok) throw new Error("Failed");
     const me = await res.json();
     userEmail.textContent = me.email || "Logged in";
+    localStorage.setItem("current_user_email", me.email || "");
   } catch {
     userEmail.textContent = "Logged in";
   }
@@ -204,5 +211,6 @@ loadMe();
 
 logoutBtn.addEventListener("click", () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("current_user_email");
   window.location.href = "../auth/index.html";
 });

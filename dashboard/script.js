@@ -52,6 +52,7 @@ async function loadMe() {
     if (!res.ok) throw new Error("Failed");
     const me = await res.json();
     userEmail.textContent = `Logged in as ${me.email}`;
+    localStorage.setItem("current_user_email", me.email || "");
   } catch {
     userEmail.textContent = "Logged in";
   }
@@ -78,6 +79,7 @@ checkAdmin();
 
 logoutBtn.addEventListener("click", () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("current_user_email");
   window.location.href = "../auth/index.html";
 });
 
@@ -145,9 +147,14 @@ async function loadAnalytics() {
 
 loadAnalytics();
 
+function getActivityKey() {
+  const email = localStorage.getItem("current_user_email") || "anon";
+  return `activity:${email}`;
+}
+
 function renderActivity() {
   if (!activityList) return;
-  const items = JSON.parse(localStorage.getItem("activity") || "[]");
+  const items = JSON.parse(localStorage.getItem(getActivityKey()) || "[]");
   if (items.length === 0) {
     activityList.innerHTML = "<div class='activity-item'>No recent activity yet.</div>";
     return;
