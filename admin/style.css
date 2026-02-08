@@ -45,13 +45,13 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 0.7rem 1.4rem;
   z-index: 1000;
 }
 
 .navbar .logo {
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: var(--brand);
   font-family: 'Space Grotesk', sans-serif;
 }
@@ -182,11 +182,6 @@ a {
 }
 
 @media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
   .nav-links {
     position: fixed;
     top: 0;

@@ -293,7 +293,7 @@ body.dark .day-section {
   justify-content: space-between;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.9rem 1.2rem;
+  padding: 0.7rem 1rem;
   background: rgba(255,255,255,0.95);
   border-radius: 12px;
   box-shadow: 0 10px 24px rgba(15,23,42,0.08);
@@ -304,7 +304,7 @@ body.dark .day-section {
 
 .navbar .logo {
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #2563eb;
 }
 
