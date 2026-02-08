@@ -298,8 +298,9 @@ body.dark .day-section {
   border-radius: 12px;
   box-shadow: 0 10px 24px rgba(15,23,42,0.08);
   margin-bottom: 1.2rem;
-  position: relative;
+  position: sticky;
   z-index: 1000;
+  top: 0;
 }
 
 .navbar .logo {
