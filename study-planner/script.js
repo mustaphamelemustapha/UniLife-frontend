@@ -100,6 +100,17 @@ async function loadPlans() {
     daySections.forEach(section => {
       section.querySelector(".plans").innerHTML = "";
     });
+    if (calendarGrid) {
+      calendarGrid.innerHTML = "";
+      const days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+      days.forEach(day => {
+        const dayEl = document.createElement("div");
+        dayEl.className = "calendar-day";
+        dayEl.dataset.day = day;
+        dayEl.innerHTML = `<h4>${day}</h4>`;
+        calendarGrid.appendChild(dayEl);
+      });
+    }
 
     plans.forEach(plan => {
       const div = document.createElement("div");
@@ -116,6 +127,15 @@ async function loadPlans() {
         `.day-section[data-day="${plan.day}"] .plans`
       );
       if (container) container.appendChild(div);
+      if (calendarGrid) {
+        const dayCell = calendarGrid.querySelector(`.calendar-day[data-day="${plan.day}"]`);
+        if (dayCell) {
+          const t = document.createElement("div");
+          t.className = "calendar-task";
+          t.textContent = plan.task;
+          dayCell.appendChild(t);
+        }
+      }
 
       // ================= DELETE =================
       div.querySelector(".delete-btn").addEventListener("click", () => {
