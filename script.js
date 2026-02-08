@@ -1,23 +1,3 @@
-// ================== MOBILE MENU TOGGLE ==================
-const navbar = document.querySelector('.navbar');
-const navLinks = navbar.querySelector('.nav-links');
-
-const menuToggle = document.createElement('div');
-menuToggle.classList.add('menu-toggle');
-menuToggle.innerHTML = '&#9776;'; // hamburger icon
-navbar.appendChild(menuToggle);
-
-menuToggle.addEventListener('click', () => {
-  navLinks.classList.toggle('active');
-});
-
-// Close menu when a link is clicked (mobile)
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('active');
-  });
-});
-
 // ================== SMOOTH SCROLLING ==================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e){

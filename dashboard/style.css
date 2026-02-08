@@ -7,10 +7,29 @@
   font-family: 'Poppins', sans-serif;
 }
 
+:root {
+  --brand: #2563eb;
+  --shadow: 0 10px 30px rgba(15,23,42,0.08);
+}
+
 body {
   background: radial-gradient(circle at top, #e0e7ff, #f8fafc 45%, #ecfeff);
   color: #333;
   min-height: 100vh;
+}
+
+body.dark {
+  background: #0b1220;
+  color: #e2e8f0;
+}
+
+body.dark .navbar,
+body.dark .card,
+body.dark .chart-card,
+body.dark .activity-item,
+body.dark .onboarding-card {
+  background: #111827;
+  color: #e2e8f0;
 }
 
 a {
@@ -179,6 +198,55 @@ a {
   margin-bottom: 0.6rem;
   color: var(--brand);
   font-family: 'Space Grotesk', sans-serif;
+}
+
+.activity {
+  margin-top: 3rem;
+}
+
+.activity-list {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.activity-item {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.onboarding {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+}
+
+.onboarding.active {
+  display: flex;
+}
+
+.onboarding-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 420px;
+  box-shadow: var(--shadow);
+}
+
+.onboarding-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  gap: 1rem;
 }
 @media (max-width: 768px) {
   .navbar {

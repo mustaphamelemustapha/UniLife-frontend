@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniLife Profile</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">UniLife</div>
+    <div class="menu-toggle">☰</div>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../dashboard/index.html">Dashboard</a></li>
+      <li><a href="../app/index.html">App</a></li>
+      <li><a href="../admin/index.html">Admin</a></li>
+    </ul>
+  </nav>
+
+  <section class="about-hero section-visible">
+    <h1>Profile</h1>
+    <p>Update your account details and preferences.</p>
+  </section>
+
+  <section class="about-grid section-visible">
+    <div class="about-card">
+      <h3>Account</h3>
+      <p id="profileEmail">Loading...</p>
+    </div>
+    <div class="about-card">
+      <h3>Display Name</h3>
+      <input id="displayName" type="text" placeholder="Your name" />
+    </div>
+    <div class="about-card">
+      <h3>Avatar URL</h3>
+      <input id="avatarUrl" type="url" placeholder="https://..." />
+    </div>
+    <div class="about-card">
+      <h3>Theme</h3>
+      <label class="toggle">
+        <input id="darkMode" type="checkbox" />
+        <span>Dark mode</span>
+      </label>
+    </div>
+  </section>
+
+  <section class="contact-card">
+    <div>
+      <h3>Save changes</h3>
+      <p>Update your profile preferences.</p>
+    </div>
+    <div class="contact-actions">
+      <button id="saveProfile" class="btn-small">Save Profile</button>
+      <span id="profileMessage"></span>
+    </div>
+  </section>
+
+  <script src="../theme.js"></script>
+  <script src="../nav.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

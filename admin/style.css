@@ -21,6 +21,17 @@ body {
   min-height: 100vh;
 }
 
+body.dark {
+  background: #0b1220;
+  color: #e2e8f0;
+}
+
+body.dark .navbar,
+body.dark .panel {
+  background: #111827;
+  color: #e2e8f0;
+}
+
 a {
   text-decoration: none;
   color: inherit;

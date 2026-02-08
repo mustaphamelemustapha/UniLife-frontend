@@ -30,6 +30,12 @@ const token = requireLogin();
 const userEmail = document.getElementById("userEmail");
 const logoutBtn = document.getElementById("logoutBtn");
 const adminLink = document.getElementById("adminLink");
+const activityList = document.getElementById("activityList");
+const onboarding = document.getElementById("onboarding");
+const tourTitle = document.getElementById("tourTitle");
+const tourBody = document.getElementById("tourBody");
+const tourNext = document.getElementById("tourNext");
+const tourSkip = document.getElementById("tourSkip");
 
 async function loadMe() {
   if (!token) return;
@@ -138,3 +144,58 @@ async function loadAnalytics() {
 }
 
 loadAnalytics();
+
+function renderActivity() {
+  if (!activityList) return;
+  const items = JSON.parse(localStorage.getItem("activity") || "[]");
+  if (items.length === 0) {
+    activityList.innerHTML = "<div class='activity-item'>No recent activity yet.</div>";
+    return;
+  }
+  activityList.innerHTML = "";
+  items.slice(0, 10).forEach(item => {
+    const div = document.createElement("div");
+    const date = new Date(item.ts);
+    div.className = "activity-item";
+    div.innerHTML = `<span>${item.message}</span><span>${date.toLocaleString()}</span>`;
+    activityList.appendChild(div);
+  });
+}
+
+renderActivity();
+
+function startOnboarding() {
+  if (!onboarding) return;
+  const seen = localStorage.getItem("onboarding_seen");
+  if (seen === "1") return;
+
+  const steps = [
+    { title: "Welcome to UniLife", body: "Your dashboard is your home base." },
+    { title: "Track Expenses", body: "Add spending and watch your trends." },
+    { title: "Plan Studies", body: "Set weekly tasks and priorities." },
+    { title: "Stay Consistent", body: "Use analytics to keep momentum." }
+  ];
+
+  let idx = 0;
+  onboarding.classList.add("active");
+  tourTitle.textContent = steps[idx].title;
+  tourBody.textContent = steps[idx].body;
+
+  tourNext.onclick = () => {
+    idx += 1;
+    if (idx >= steps.length) {
+      onboarding.classList.remove("active");
+      localStorage.setItem("onboarding_seen", "1");
+      return;
+    }
+    tourTitle.textContent = steps[idx].title;
+    tourBody.textContent = steps[idx].body;
+  };
+
+  tourSkip.onclick = () => {
+    onboarding.classList.remove("active");
+    localStorage.setItem("onboarding_seen", "1");
+  };
+}
+
+startOnboarding();

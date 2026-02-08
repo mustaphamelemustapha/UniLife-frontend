@@ -9,8 +9,10 @@
 <body>
   <nav class="navbar">
     <div class="logo">UniLife</div>
+    <div class="menu-toggle">☰</div>
     <ul class="nav-links">
       <li><a href="../index.html">Home</a></li>
+      <li><a href="../profile/index.html">Profile</a></li>
       <li><a href="../auth/index.html">Account</a></li>
       <li><a href="../study-planner/index.html">Study Planner</a></li>
       <li><a href="../expenses-tracker/index.html">Expense Tracker</a></li>
@@ -18,6 +20,16 @@
   </nav>
 
   <main class="container">
+    <div class="onboarding" id="onboarding">
+      <div class="onboarding-card">
+        <h3 id="tourTitle">Welcome to UniLife</h3>
+        <p id="tourBody">Let's take a quick tour.</p>
+        <div class="onboarding-actions">
+          <button id="tourSkip" class="btn-secondary">Skip</button>
+          <button id="tourNext" class="btn">Next</button>
+        </div>
+      </div>
+    </div>
     <section class="welcome">
       <h1>Welcome back</h1>
       <p id="userEmail">Loading account...</p>
@@ -57,9 +69,16 @@
         </div>
       </div>
     </section>
+
+    <section class="activity">
+      <h2>Activity Feed</h2>
+      <div id="activityList" class="activity-list"></div>
+    </section>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../theme.js"></script>
   <script src="script.js"></script>
+  <script src="../nav.js"></script>
 </body>
 </html>

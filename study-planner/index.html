@@ -8,21 +8,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="top-bar">
-    <div class="brand">
-      <span class="logo">UniLife</span>
-      <span class="builder">Study Planner</span>
-    </div>
+  <nav class="navbar">
+    <div class="logo">UniLife</div>
+    <div class="menu-toggle">☰</div>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../dashboard/index.html">Dashboard</a></li>
+      <li><a href="../expenses-tracker/index.html">Expenses</a></li>
+      <li><a href="../profile/index.html">Profile</a></li>
+    </ul>
     <div class="user-bar">
       <span id="userEmail" class="user-email">Loading...</span>
       <button id="logoutBtn" class="logout-btn">Logout</button>
     </div>
-  </header>
-
-  <nav class="page-nav">
-    <a href="../dashboard/index.html">🏠 Dashboard</a>
-    <a href="../expenses-tracker/index.html">💸 Expenses</a>
-    <span class="active">📚 Planner</span>
   </nav>
 
   <div class="container">
@@ -58,6 +56,8 @@
     </div>
   </div>
 
+  <script src="../theme.js"></script>
   <script src="./script.js"></script>
+  <script src="../nav.js"></script>
 </body>
 </html>

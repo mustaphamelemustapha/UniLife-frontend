@@ -14,6 +14,19 @@ body {
   min-height: 100vh;
 }
 
+body.dark {
+  background: #0b1220;
+  color: #e2e8f0;
+}
+
+body.dark .navbar,
+body.dark .summary-card,
+body.dark .add-expense,
+body.dark #expenseList li {
+  background: #111827;
+  color: #e2e8f0;
+}
+
 main.app {
   display: flex;
   flex-direction: column;

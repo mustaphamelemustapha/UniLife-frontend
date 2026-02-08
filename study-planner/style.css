@@ -20,6 +20,18 @@ body {
   padding: 20px;
 }
 
+body.dark {
+  background: #0b1220;
+  color: #e2e8f0;
+}
+
+body.dark .navbar,
+body.dark .container,
+body.dark .day-section {
+  background: #111827;
+  color: #e2e8f0;
+}
+
 /* =========================
    TOP BAR
 ========================= */

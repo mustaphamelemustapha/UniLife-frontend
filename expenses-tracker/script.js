@@ -48,6 +48,12 @@ function requireToken() {
   return true;
 }
 
+function addActivity(message) {
+  const items = JSON.parse(localStorage.getItem("activity") || "[]");
+  items.unshift({ message, ts: Date.now() });
+  localStorage.setItem("activity", JSON.stringify(items.slice(0, 50)));
+}
+
 async function loadMe() {
   const token = getToken();
   if (!token) return;
@@ -132,6 +138,7 @@ addExpenseBtn.addEventListener("click", async () => {
 
     amountInput.value = "";
     categoryInput.value = "";
+    addActivity(`Added expense: ${category} (₦${amount})`);
     loadExpenses();
   } catch (err) {
     console.error(err);
@@ -158,6 +165,7 @@ async function deleteExpense(id) {
     if (!res.ok) throw new Error("Delete failed");
 
     loadExpenses();
+    addActivity("Deleted an expense");
   } catch (err) {
     console.error(err);
     alert("Failed to delete expense");
@@ -183,6 +191,7 @@ async function resetExpenses() {
     if (!res.ok) throw new Error("Reset failed");
 
     loadExpenses();
+    addActivity("Reset all expenses");
   } catch (err) {
     console.error(err);
     alert("Failed to reset expenses");

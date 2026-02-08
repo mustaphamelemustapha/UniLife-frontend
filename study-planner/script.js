@@ -45,6 +45,12 @@ function requireToken() {
   return true;
 }
 
+function addActivity(message) {
+  const items = JSON.parse(localStorage.getItem("activity") || "[]");
+  items.unshift({ message, ts: Date.now() });
+  localStorage.setItem("activity", JSON.stringify(items.slice(0, 50)));
+}
+
 async function loadMe() {
   const token = getToken();
   if (!token) return;
@@ -141,6 +147,7 @@ addPlanBtn.addEventListener("click", async () => {
     if (!res.ok) throw new Error("Save failed");
 
     planInput.value = "";
+    addActivity(`Added study task: ${task} (${priority})`);
     loadPlans();
 
   } catch (err) {
@@ -167,6 +174,7 @@ async function deletePlan(planId) {
     if (!res.ok) throw new Error("Delete failed");
 
     loadPlans();
+    addActivity("Deleted a study task");
 
   } catch (err) {
     alert("Failed to delete plan");
@@ -212,6 +220,7 @@ function editPlan(plan) {
       // Reset button and input fields
       addPlanBtn.textContent = "Add Task";
       planInput.value = "";
+      addActivity(`Updated task: ${updatedTask} (${updatedPriority})`);
       loadPlans();
 
       // Restore Add button click
@@ -237,6 +246,7 @@ function editPlan(plan) {
           }
           if (!res.ok) throw new Error("Save failed");
           planInput.value = "";
+          addActivity(`Added study task: ${task} (${priority})`);
           loadPlans();
         } catch (err) {
           alert("Failed to save plan");

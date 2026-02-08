@@ -24,6 +24,43 @@ body {
   scroll-behavior: smooth;
 }
 
+body.dark {
+  background: #0b1220;
+  color: #e2e8f0;
+}
+
+body.dark .navbar,
+body.dark .card,
+body.dark .tool-card,
+body.dark .step-card,
+body.dark .trust-item,
+body.dark .story-card,
+body.dark .price-card,
+body.dark .about-card,
+body.dark .contact-card,
+body.dark .hero-card {
+  background: #111827;
+  color: #e2e8f0;
+}
+
+body.dark .nav-links {
+  background: rgba(17,24,39,0.7);
+  border-color: rgba(148,163,184,0.2);
+}
+
+body.dark .nav-links a {
+  color: #e2e8f0;
+}
+
+body.dark .section-lead,
+body.dark .card p,
+body.dark .tool-card p,
+body.dark .testimonial-meta,
+body.dark .price-list,
+body.dark .about-hero p {
+  color: #cbd5f5;
+}
+
 a {
   text-decoration: none;
   color: inherit;
