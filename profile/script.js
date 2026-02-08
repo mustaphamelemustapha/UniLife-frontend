@@ -66,13 +66,15 @@ saveBtn.addEventListener("click", async () => {
     })
   });
   if (!res.ok) {
-    messageEl.textContent = "Save failed";
+    const err = await res.json().catch(() => ({}));
+    messageEl.textContent = err.detail || "Save failed";
     return;
   }
   messageEl.textContent = "Saved";
   localStorage.setItem("dark_mode", darkMode.checked ? "1" : "0");
   document.body.classList.toggle("dark", darkMode.checked);
   nameEl.textContent = displayName.value.trim() || "No display name";
+  await loadProfile();
 });
 
 loadProfile();
