@@ -71,7 +71,7 @@ a {
   border: 1px solid rgba(15,23,42,0.08);
   padding: 0.3rem;
   border-radius: 999px;
-  z-index: 1001;
+  z-index: 1100;
 }
 
 .nav-links a {
@@ -91,6 +91,7 @@ a {
   font-size: 1.8rem;
   cursor: pointer;
   color: var(--brand);
+  z-index: 1101;
 }
 
 .nav-overlay {
@@ -100,7 +101,7 @@ a {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease-in-out;
-  z-index: 900;
+  z-index: 800;
 }
 
 .nav-overlay.active {
@@ -214,7 +215,7 @@ a {
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
     border-radius: 0 18px 18px 0;
-    z-index: 1001;
+    z-index: 1100;
   }
 
   .nav-links.active {

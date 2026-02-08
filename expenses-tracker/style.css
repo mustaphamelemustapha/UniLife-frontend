@@ -337,7 +337,7 @@ main.app {
   border: 1px solid rgba(15,23,42,0.08);
   padding: 0.3rem;
   border-radius: 999px;
-  z-index: 1001;
+  z-index: 1100;
 }
 
 .nav-links a {
@@ -358,6 +358,7 @@ main.app {
   font-size: 1.6rem;
   cursor: pointer;
   color: #2563eb;
+  z-index: 1101;
 }
 
 @media (max-width: 768px) {
@@ -379,7 +380,7 @@ main.app {
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
     border-radius: 0 18px 18px 0;
-    z-index: 1001;
+    z-index: 1100;
   }
 
   .nav-links.active {
@@ -405,7 +406,7 @@ main.app {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease-in-out;
-  z-index: 900;
+  z-index: 800;
 }
 
 .nav-overlay.active {

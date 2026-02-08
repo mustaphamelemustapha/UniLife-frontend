@@ -45,13 +45,13 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 0.7rem 1.4rem;
   z-index: 1000;
 }
 
 .navbar .logo {
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #2563eb;
   font-family: 'Space Grotesk', sans-serif;
 }
@@ -64,7 +64,7 @@ a {
   border: 1px solid rgba(15,23,42,0.08);
   padding: 0.3rem;
   border-radius: 999px;
-  z-index: 1001;
+  z-index: 1100;
 }
 
 .nav-links a {
@@ -84,6 +84,7 @@ a {
   font-size: 1.8rem;
   cursor: pointer;
   color: #2563eb;
+  z-index: 1101;
 }
 
 .nav-overlay {
@@ -93,7 +94,7 @@ a {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease-in-out;
-  z-index: 900;
+  z-index: 800;
 }
 
 .nav-overlay.active {
@@ -249,11 +250,6 @@ a {
   gap: 1rem;
 }
 @media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
   .nav-links {
     position: fixed;
     top: 0;
@@ -268,7 +264,7 @@ a {
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
     border-radius: 0 18px 18px 0;
-    z-index: 1001;
+    z-index: 1100;
   }
 
   .nav-links.active {
