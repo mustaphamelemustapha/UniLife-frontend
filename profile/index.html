@@ -26,15 +26,22 @@
   <section class="about-grid section-visible">
     <div class="about-card">
       <h3>Account</h3>
-      <p id="profileEmail">Loading...</p>
+      <div class="profile-card">
+        <img id="avatarPreview" class="avatar" alt="Profile avatar" />
+        <div>
+          <p id="profileEmail">Loading...</p>
+          <p id="profileName" class="muted">No display name</p>
+        </div>
+      </div>
     </div>
     <div class="about-card">
       <h3>Display Name</h3>
       <input id="displayName" type="text" placeholder="Your name" />
     </div>
     <div class="about-card">
-      <h3>Avatar URL</h3>
-      <input id="avatarUrl" type="url" placeholder="https://..." />
+      <h3>Avatar</h3>
+      <input id="avatarFile" type="file" accept="image/*" />
+      <p class="muted">Upload a square image for best results.</p>
     </div>
     <div class="about-card">
       <h3>Theme</h3>
