@@ -1,4 +1,6 @@
 const planInput = document.getElementById("planInput");
+const dateInput = document.getElementById("dateInput");
+const timeInput = document.getElementById("timeInput");
 const daySelect = document.getElementById("daySelect");
 const prioritySelect = document.getElementById("prioritySelect");
 const addPlanBtn = document.getElementById("addPlanBtn");
@@ -95,6 +97,7 @@ async function loadPlans() {
     if (!res.ok) throw new Error("Failed to load");
 
     const plans = await res.json();
+    scheduleReminders(plans);
 
     // Clear UI
     daySections.forEach(section => {
@@ -102,12 +105,19 @@ async function loadPlans() {
     });
     if (calendarGrid) {
       calendarGrid.innerHTML = "";
-      const days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
-      days.forEach(day => {
+      const today = new Date();
+      const dates = [];
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(today);
+        d.setDate(today.getDate() + i);
+        dates.push(d);
+      }
+      dates.forEach(d => {
+        const label = d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
         const dayEl = document.createElement("div");
         dayEl.className = "calendar-day";
-        dayEl.dataset.day = day;
-        dayEl.innerHTML = `<h4>${day}</h4>`;
+        dayEl.dataset.date = d.toISOString().slice(0, 10);
+        dayEl.innerHTML = `<h4>${label}</h4>`;
         calendarGrid.appendChild(dayEl);
       });
     }
@@ -123,16 +133,19 @@ async function loadPlans() {
         <button class="delete-btn">❌</button>
       `;
 
+      const dateKey = plan.date || null;
+      const dayName = plan.date ? new Date(plan.date).toLocaleDateString(undefined, { weekday: "long" }) : plan.day;
       const container = document.querySelector(
-        `.day-section[data-day="${plan.day}"] .plans`
+        `.day-section[data-day="${dayName}"] .plans`
       );
       if (container) container.appendChild(div);
       if (calendarGrid) {
-        const dayCell = calendarGrid.querySelector(`.calendar-day[data-day="${plan.day}"]`);
+        const dayCell = dateKey ? calendarGrid.querySelector(`.calendar-day[data-date="${dateKey}"]`) : null;
         if (dayCell) {
           const t = document.createElement("div");
           t.className = "calendar-task";
-          t.textContent = plan.task;
+          const timeLabel = plan.time ? ` • ${plan.time}` : "";
+          t.textContent = `${plan.task}${timeLabel}`;
           dayCell.appendChild(t);
         }
       }
@@ -158,6 +171,8 @@ async function loadPlans() {
 addPlanBtn.addEventListener("click", async () => {
   const task = planInput.value.trim();
   const day = daySelect.value;
+  const date = dateInput.value || null;
+  const time = timeInput.value || null;
   const priority = prioritySelect.value;
 
   if (!task) {
@@ -170,7 +185,7 @@ addPlanBtn.addEventListener("click", async () => {
     const res = await fetch(`${API_BASE}/`, {
       method: "POST",
       headers: { "Content-Type": "application/json", ...authHeaders() },
-      body: JSON.stringify({ task, day, priority })
+      body: JSON.stringify({ task, day, priority, date, time })
     });
     if (res.status === 401) {
       localStorage.removeItem("token");
@@ -181,6 +196,8 @@ addPlanBtn.addEventListener("click", async () => {
     if (!res.ok) throw new Error("Save failed");
 
     planInput.value = "";
+    dateInput.value = "";
+    timeInput.value = "";
     addActivity(`Added study task: ${task} (${priority})`);
     loadPlans();
 
@@ -221,6 +238,8 @@ function editPlan(plan) {
   // Prefill input fields with plan data
   planInput.value = plan.task;
   daySelect.value = plan.day;
+  dateInput.value = plan.date || "";
+  timeInput.value = plan.time || "";
   prioritySelect.value = plan.priority;
 
   // Change Add button to Update button
@@ -229,6 +248,8 @@ function editPlan(plan) {
   addPlanBtn.onclick = async () => {
     const updatedTask = planInput.value.trim();
     const updatedDay = daySelect.value;
+    const updatedDate = dateInput.value || null;
+    const updatedTime = timeInput.value || null;
     const updatedPriority = prioritySelect.value;
 
     if (!updatedTask) {
@@ -241,7 +262,7 @@ function editPlan(plan) {
       const res = await fetch(`${API_BASE}/${plan.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", ...authHeaders() },
-        body: JSON.stringify({ task: updatedTask, day: updatedDay, priority: updatedPriority })
+        body: JSON.stringify({ task: updatedTask, day: updatedDay, priority: updatedPriority, date: updatedDate, time: updatedTime })
       });
       if (res.status === 401) {
         localStorage.removeItem("token");
@@ -254,6 +275,8 @@ function editPlan(plan) {
       // Reset button and input fields
       addPlanBtn.textContent = "Add Task";
       planInput.value = "";
+      dateInput.value = "";
+      timeInput.value = "";
       addActivity(`Updated task: ${updatedTask} (${updatedPriority})`);
       loadPlans();
 
@@ -271,7 +294,7 @@ function editPlan(plan) {
           const res = await fetch(`${API_BASE}/`, {
             method: "POST",
             headers: { "Content-Type": "application/json", ...authHeaders() },
-            body: JSON.stringify({ task, day, priority })
+            body: JSON.stringify({ task, day, priority, date: dateInput.value || null, time: timeInput.value || null })
           });
           if (res.status === 401) {
             localStorage.removeItem("token");
@@ -304,6 +327,30 @@ logoutBtn.addEventListener("click", () => {
   localStorage.removeItem("current_user_email");
   window.location.href = "../auth/index.html";
 });
+
+// Reminders (browser notifications for today's tasks)
+function scheduleReminders(plans) {
+  if (!("Notification" in window)) return;
+  if (Notification.permission === "default") {
+    Notification.requestPermission();
+  }
+  if (Notification.permission !== "granted") return;
+
+  const today = new Date().toISOString().slice(0, 10);
+  const now = Date.now();
+  plans.forEach(plan => {
+    if (plan.date !== today || !plan.time) return;
+    const target = new Date(`${plan.date}T${plan.time}:00`).getTime();
+    if (target > now && target - now < 8 * 60 * 60 * 1000) {
+      const key = `reminded:${plan.id}:${plan.time}`;
+      if (localStorage.getItem(key)) return;
+      setTimeout(() => {
+        new Notification("UniLife Study Reminder", { body: plan.task });
+        localStorage.setItem(key, "1");
+      }, target - now);
+    }
+  });
+}
 
 // ================= Pomodoro =================
 let timer = null;

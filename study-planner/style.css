@@ -213,6 +213,12 @@ body.dark .day-section {
   margin-bottom: 0.3rem;
 }
 
+body.dark .calendar,
+body.dark .calendar-day {
+  background: #111827;
+  color: #e2e8f0;
+}
+
 /* =========================
    ADD TASK FORM
 ========================= */
