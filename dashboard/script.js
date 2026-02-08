@@ -36,6 +36,12 @@ const tourTitle = document.getElementById("tourTitle");
 const tourBody = document.getElementById("tourBody");
 const tourNext = document.getElementById("tourNext");
 const tourSkip = document.getElementById("tourSkip");
+const currentStreakEl = document.getElementById("currentStreak");
+const bestStreakEl = document.getElementById("bestStreak");
+const weeklyGoalEl = document.getElementById("weeklyGoal");
+const weeklyGoalStatusEl = document.getElementById("weeklyGoalStatus");
+const goalMinus = document.getElementById("goalMinus");
+const goalPlus = document.getElementById("goalPlus");
 
 async function loadMe() {
   if (!token) return;
@@ -170,6 +176,86 @@ function renderActivity() {
 }
 
 renderActivity();
+
+function getActivityDates() {
+  const items = JSON.parse(localStorage.getItem(getActivityKey()) || "[]");
+  const dates = new Set();
+  items.forEach(item => {
+    const d = new Date(item.ts);
+    dates.add(d.toISOString().slice(0, 10));
+  });
+  return Array.from(dates).sort();
+}
+
+function computeStreaks() {
+  const dates = getActivityDates();
+  if (dates.length === 0) {
+    currentStreakEl.textContent = "0 days";
+    bestStreakEl.textContent = "0 days";
+    weeklyGoalStatusEl.textContent = "0 / 5 days";
+    return;
+  }
+
+  const dateSet = new Set(dates);
+  const today = new Date();
+  let current = 0;
+  for (let i = 0; i < 365; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+    const key = d.toISOString().slice(0, 10);
+    if (dateSet.has(key)) {
+      current += 1;
+    } else {
+      break;
+    }
+  }
+
+  // Best streak
+  let best = 0;
+  let streak = 0;
+  const sorted = dates.map(d => new Date(d));
+  for (let i = 0; i < sorted.length; i++) {
+    if (i === 0) {
+      streak = 1;
+    } else {
+      const diff = (sorted[i] - sorted[i - 1]) / 86400000;
+      if (diff === 1) streak += 1;
+      else streak = 1;
+    }
+    if (streak > best) best = streak;
+  }
+
+  currentStreakEl.textContent = `${current} day${current === 1 ? "" : "s"}`;
+  bestStreakEl.textContent = `${best} day${best === 1 ? "" : "s"}`;
+
+  const goal = Number(localStorage.getItem("weekly_goal") || "5");
+  weeklyGoalEl.textContent = `${goal} days`;
+
+  // count days in last 7
+  let weeklyCount = 0;
+  for (let i = 0; i < 7; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    if (dateSet.has(d.toISOString().slice(0, 10))) weeklyCount += 1;
+  }
+  weeklyGoalStatusEl.textContent = `${weeklyCount} / ${goal} days`;
+}
+
+computeStreaks();
+
+goalMinus.addEventListener("click", () => {
+  let goal = Number(localStorage.getItem("weekly_goal") || "5");
+  goal = Math.max(1, goal - 1);
+  localStorage.setItem("weekly_goal", String(goal));
+  computeStreaks();
+});
+
+goalPlus.addEventListener("click", () => {
+  let goal = Number(localStorage.getItem("weekly_goal") || "5");
+  goal = Math.min(7, goal + 1);
+  localStorage.setItem("weekly_goal", String(goal));
+  computeStreaks();
+});
 
 function startOnboarding() {
   if (!onboarding) return;
