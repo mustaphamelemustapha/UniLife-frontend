@@ -44,6 +44,21 @@ body::before {
   z-index: -1;
 }
 
+.launch-banner {
+  margin-top: 76px;
+  background: linear-gradient(90deg, #0f172a, #2563eb);
+  color: #fff;
+  padding: 0.75rem 2rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.launch-banner a {
+  color: #fff;
+  text-decoration: underline;
+  margin-left: 0.5rem;
+}
+
 /* ================== NAVBAR ================== */
 .navbar {
   position: fixed;
